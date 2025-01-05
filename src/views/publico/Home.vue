@@ -1,20 +1,19 @@
 <template>
   <div class="home">
     <Navbar></Navbar>
-      <div class=" container grid">
-        <div v-for="post in posts" :key="post.id">
-            <Post 
+    <div class="container paddingtop grid">
+      <div v-for="post in posts" :key="post.id">
+        <Post
           :title="post.title"
           :id="post.id"
           :body="post.body"
           :userId="post.userId"
-          >   
-          </Post>
-        </div>
+        >
+        </Post>
       </div>
-      <Modal />
+    </div>
+    <Modal />
   </div>
-    
 </template>
 
 <script>
@@ -28,38 +27,32 @@ export default {
   components: {
     Post,
     Modal,
-    Navbar
+    Navbar,
   },
   data() {
     return {
       show: false,
       posts: [],
-    }
+    };
   },
   async mounted() {
     try {
       let { data: posts } = await api.get('posts');
       this.posts = posts;
-      
-    }catch (Erro){
-      console.log("erro", Erro);
+    } catch (Erro) {
+      console.log('erro', Erro);
     }
-
   },
 
   methods: {
-    sair: function (event){
-      if(event){
+    sair: function(event) {
+      if (event) {
         localStorage.clear();
         this.$router.push('/login');
       }
-    }
-    
-  }
-  
-}
+    },
+  },
+};
 </script>
 
-<style lang="css">
-  
-</style>
+<style lang="css"></style>
